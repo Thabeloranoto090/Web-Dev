@@ -1,0 +1,57 @@
+<style>
+  * { box-sizing: border-box; }
+
+  header {
+    background: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .product-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .product-card {
+    flex: 1 1 250px;
+    max-width: 300px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+  }
+
+  footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 15px;
+  }
+</style>
+
+<header>
+  <h1>My Online Store</h1>
+</header>
+
+<div class="product-grid">
+  <div class="product-card">
+    <h3>Product 1</h3>
+    <p>$29.99</p>
+  </div>
+  <div class="product-card">
+    <h3>Product 2</h3>
+    <p>$39.99</p>
+  </div>
+  <div class="product-card">
+    <h3>Product 3</h3>
+    <p>$49.99</p>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 My Online Store</p>
+</footer>
