@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Student Profile</title>
+	<style>
+		:root {
+			--ink: #17212b;
+			--muted: #66727d;
+			--accent: #e5673f;
+			--accent-dark: #bb4522;
+			--paper: #fffdf8;
+			--line: #e7dfd4;
+			--shadow: 0 24px 70px rgba(54, 39, 24, 0.15);
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			min-height: 100vh;
+			margin: 0;
+			display: grid;
+			place-items: center;
+			padding: 32px 18px;
+			color: var(--ink);
+			font-family: Georgia, "Times New Roman", serif;
+			background:
+				radial-gradient(circle at 12% 10%, rgba(229, 103, 63, 0.22), transparent 30%),
+				linear-gradient(135deg, #f6efe5 0%, #dfe9e5 100%);
+		}
+
+		.shell {
+			width: min(100%, 960px);
+			overflow: hidden;
+			display: grid;
+			grid-template-columns: 0.9fr 1.1fr;
+			background: var(--paper);
+			border: 1px solid rgba(255, 255, 255, 0.8);
+			box-shadow: var(--shadow);
+		}
+
+		.intro {
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			min-height: 540px;
+			padding: 48px;
+			color: #fffaf3;
+			background: #203a3a;
+		}
+
+		.eyebrow {
+			margin: 0 0 72px;
+			color: #f3b69e;
+			font: 700 0.78rem/1.2 Arial, sans-serif;
+			letter-spacing: 0.16em;
+			text-transform: uppercase;
+		}
+
+		h1, h2, p {
+			margin-top: 0;
+		}
+
+		h1 {
+			max-width: 340px;
+			margin-bottom: 18px;
+			font-size: clamp(2.5rem, 5vw, 4.5rem);
+			line-height: 0.95;
+			font-weight: 400;
+		}
+
+		.intro-copy {
+			max-width: 310px;
+			margin-bottom: 0;
+			color: #c9d6d0;
+			font: 1rem/1.7 Arial, sans-serif;
+		}
+
+		.mark {
+			align-self: flex-end;
+			width: 82px;
+			height: 82px;
+			display: grid;
+			place-items: center;
+			border: 1px solid rgba(255, 255, 255, 0.35);
+			border-radius: 50%;
+			color: #f3b69e;
+			font-size: 2rem;
+		}
+
+		.form-panel {
+			padding: 52px clamp(28px, 6vw, 72px);
+		}
+
+		.form-panel h2 {
+			margin-bottom: 8px;
+			font-size: 2rem;
+			font-weight: 400;
+		}
+
+		.form-panel > p {
+			margin-bottom: 34px;
+			color: var(--muted);
+			font: 0.95rem/1.5 Arial, sans-serif;
+		}
+
+		.field {
+			margin-bottom: 22px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 8px;
+			color: var(--ink);
+			font: 700 0.75rem/1.2 Arial, sans-serif;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		input, select {
+			width: 100%;
+			padding: 14px 0;
+			border: 0;
+			border-bottom: 1px solid var(--line);
+			outline: 0;
+			color: var(--ink);
+			background: transparent;
+			font: 1.05rem Georgia, "Times New Roman", serif;
+		}
+
+		input:focus, select:focus {
+			border-bottom-color: var(--accent);
+		}
+
+		.error {
+			min-height: 18px;
+			margin: 7px 0 0;
+			color: #b43e28;
+			font: 0.78rem Arial, sans-serif;
+		}
+
+		button {
+			width: 100%;
+			margin-top: 8px;
+			padding: 16px 20px;
+			border: 0;
+			cursor: pointer;
+			color: white;
+			background: var(--accent);
+			font: 700 0.82rem Arial, sans-serif;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+			transition: background 180ms ease, transform 180ms ease;
+		}
+
+		button:hover {
+			background: var(--accent-dark);
+			transform: translateY(-2px);
+		}
+
+		.profile-page {
+			grid-column: 1 / -1;
+			padding: clamp(32px, 8vw, 90px);
+		}
+
+		.profile-page[hidden] {
+			display: none;
+		}
+
+		.profile-page h2 {
+			margin-bottom: 8px;
+			font-size: clamp(2.3rem, 6vw, 4.8rem);
+			font-weight: 400;
+		}
+
+		.profile-page > p {
+			margin-bottom: 34px;
+			color: var(--muted);
+			font: 1rem/1.5 Arial, sans-serif;
+		}
+
+		.profile-details {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			border-top: 1px solid var(--line);
+			border-bottom: 1px solid var(--line);
+		}
+
+		.profile-details div {
+			padding: 24px 18px 24px 0;
+		}
+
+		.profile-details div + div {
+			padding-left: 18px;
+			border-left: 1px solid var(--line);
+		}
+
+		.detail-label {
+			display: block;
+			margin-bottom: 9px;
+			color: var(--muted);
+			font: 700 0.7rem Arial, sans-serif;
+			letter-spacing: 0.08em;
+			text-transform: uppercase;
+		}
+
+		.detail-value {
+			font-size: 1.25rem;
+			overflow-wrap: anywhere;
+		}
+
+		.back-button {
+			width: auto;
+			margin-top: 34px;
+			padding-inline: 28px;
+		}
+
+		@media (max-width: 700px) {
+			.shell {
+				display: block;
+			}
+
+			.intro {
+				min-height: auto;
+				padding: 34px 28px 38px;
+			}
+
+			.eyebrow {
+				margin-bottom: 48px;
+			}
+
+			.mark {
+				display: none;
+			}
+
+			.form-panel {
+				padding: 38px 28px 42px;
+			}
+
+			.profile-details {
+				grid-template-columns: 1fr;
+			}
+
+			.profile-details div,
+			.profile-details div + div {
+				padding: 18px 0;
+				border-left: 0;
+			}
+
+			.profile-details div + div {
+				border-top: 1px solid var(--line);
+			}
+		}
+	</style>
+</head>
+<body>
+	<main class="shell">
+		<section class="intro" id="intro-panel">
+			<div>
+				<p class="eyebrow">Student records / 2026</p>
+				<h1>Your academic profile starts here.</h1>
+				<p class="intro-copy">Add your details to create a clear, personal student profile.</p>
+			</div>
+			<div class="mark" aria-hidden="true">SP</div>
+		</section>
+
+		<section class="form-panel" id="form-panel">
+			<h2>Student details</h2>
+			<p>Complete the form below to continue to your profile page.</p>
+			<form id="student-form" novalidate>
+				<div class="field">
+					<label for="student-name">Full name</label>
+					<input id="student-name" name="studentName" type="text" autocomplete="name" placeholder="Enter your full name">
+					<p class="error" id="name-error" aria-live="polite"></p>
+				</div>
+
+				<div class="field">
+					<label for="roll-number">GR roll number</label>
+					<input id="roll-number" name="rollNumber" type="text" inputmode="numeric" placeholder="Enter your GR roll number">
+					<p class="error" id="roll-error" aria-live="polite"></p>
+				</div>
+
+				<div class="field">
+					<label for="stream">Stream of study</label>
+					<select id="stream" name="stream">
+						<option value="">Select your stream</option>
+						<option value="Science">Science</option>
+						<option value="Commerce">Commerce</option>
+						<option value="Arts and Humanities">Arts and Humanities</option>
+						<option value="Technology">Technology</option>
+						<option value="Other">Other</option>
+					</select>
+					<p class="error" id="stream-error" aria-live="polite"></p>
+				</div>
+
+				<button type="submit">View student profile</button>
+			</form>
+		</section>
+
+		<section class="profile-page" id="profile-page" hidden>
+			<p class="eyebrow">Profile created</p>
+			<h2 id="profile-name"></h2>
+			<p>Your student details have been added successfully.</p>
+			<div class="profile-details">
+				<div>
+					<span class="detail-label">GR roll number</span>
+					<span class="detail-value" id="profile-roll"></span>
+				</div>
+				<div>
+					<span class="detail-label">Stream of study</span>
+					<span class="detail-value" id="profile-stream"></span>
+				</div>
+				<div>
+					<span class="detail-label">Status</span>
+					<span class="detail-value">Active student</span>
+				</div>
+			</div>
+			<button class="back-button" id="back-button" type="button">Edit details</button>
+		</section>
+	</main>
+
+	<script>
+		const form = document.querySelector("#student-form");
+		const formPanel = document.querySelector("#form-panel");
+		const introPanel = document.querySelector("#intro-panel");
+		const profilePage = document.querySelector("#profile-page");
+		const nameInput = document.querySelector("#student-name");
+		const rollInput = document.querySelector("#roll-number");
+		const streamInput = document.querySelector("#stream");
+
+		form.addEventListener("submit", (event) => {
+			event.preventDefault();
+
+			const name = nameInput.value.trim();
+			const rollNumber = rollInput.value.trim();
+			const stream = streamInput.value;
+			let isValid = true;
+
+			document.querySelectorAll(".error").forEach((error) => {
+				error.textContent = "";
+			});
+
+			if (!name) {
+				document.querySelector("#name-error").textContent = "Please enter the student's name.";
+				isValid = false;
+			}
+
+			if (!rollNumber) {
+				document.querySelector("#roll-error").textContent = "Please enter the GR roll number.";
+				isValid = false;
+			}
+
+			if (!stream) {
+				document.querySelector("#stream-error").textContent = "Please select a stream of study.";
+				isValid = false;
+			}
+
+			if (!isValid) {
+				return;
+			}
+
+			document.querySelector("#profile-name").textContent = name;
+			document.querySelector("#profile-roll").textContent = rollNumber;
+			document.querySelector("#profile-stream").textContent = stream;
+			formPanel.hidden = true;
+			introPanel.hidden = true;
+			profilePage.hidden = false;
+		});
+
+		document.querySelector("#back-button").addEventListener("click", () => {
+			profilePage.hidden = true;
+			introPanel.hidden = false;
+			formPanel.hidden = false;
+			nameInput.focus();
+		});
+	</script>
+</body>
+</html>
